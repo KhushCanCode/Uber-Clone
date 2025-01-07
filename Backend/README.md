@@ -5,17 +5,8 @@
 ### POST /users/register
 Register a new user.
 
-#### Description
-This endpoint registers a new user by accepting their first name, last name, email, and password. The password is hashed before storing in the database. Upon successful registration, a JWT token is returned along with the user details.
-
-
-
 #### Request
 
-- **URL**: `/users/register`
-- **Method**: `POST`
-- **Headers**: 
-  - `Content-Type: application/json`
 - **Body**:
   ```json
   {
@@ -73,3 +64,63 @@ This endpoint registers a new user by accepting their first name, last name, ema
 - `email`: Must be a valid email address.
 - `fullname.firstname`: Must be at least 3 characters long.
 - `password`: Must be at least 6 characters long.
+
+
+
+### POST /users/login
+Authenticates a user and returns a JWT token.
+
+**Request Body:**
+```json
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
+```
+
+**Responses:**
+
+- **Success** (201 Created)
+  ```json
+  {
+    "token": "jwt_token",
+    "user": {
+      "_id": "user_id",
+      "fullname": {
+        "firstname": "John",
+        "lastname": "Doe"
+      },
+      "email": "user@example.com",
+      
+    }
+  }
+  ```
+
+- **Bad Request** (400)
+  ```json
+  {
+    "errors": [
+      {
+        "msg": "Invalid Email",
+        "param": "email",
+        "location": "body"
+      },
+      {
+        "msg": "Password must be 6 characters long",
+        "param": "password",
+        "location": "body"
+      }
+    ]
+  }
+  ```
+
+- **Unauthorized**
+  ```json
+  {
+    "message": "Invalid Email or Password"
+  }
+  ```
+
+**Validation Errors:**
+- `email` must be a valid email address.
+- `password` must be at least 6 characters long.
