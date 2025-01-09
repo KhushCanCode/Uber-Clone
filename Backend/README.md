@@ -124,3 +124,57 @@ Authenticates a user and returns a JWT token.
 **Validation Errors:**
 - `email` must be a valid email address.
 - `password` must be at least 6 characters long.
+
+
+
+### GET /users/profile
+Fetches the profile of the authenticated user.
+
+**Request:**
+Headers:
+- Authorization: Bearer jwt_token
+
+**Responses:**
+
+- **Success** (200 Ok)
+  ```json
+  {
+    "_id": "user_id",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "user@example.com",
+    // ...other user fields...
+  }
+  ```
+
+- **Unauthorized** (401)
+  ```json
+  {
+      "message": "Authentication required"
+  }
+  ```
+
+### GET /users/logout
+Logs out the authenticated user by invalidating the JWT token.
+
+**Request:**
+Headers:
+- Authorization: Bearer jwt_token
+
+**Responses:**
+
+- **Success** (200 Ok)
+  ```json
+  {
+   "message": "Logged Out"
+  }
+  ```
+
+- **Unauthorized** (401)
+  ```json
+  {
+      "message": "Authentication required"
+  }
+  ```
