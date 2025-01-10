@@ -12,7 +12,7 @@ const cookieParser = require('cookie-parser');
 const connectToDb = require('./db/db');
 
 const userRoutes = require('./routes/user.route');
-
+const captainRoutes = require('./routes/captain.route')
 
 
 
@@ -28,5 +28,5 @@ app.get('/', (req,res)=>{
     res.send('Server is Live...');
 })
 app.use('/users', userRoutes);
-
+app.use('/captain', captainRoutes)
 module.exports = app;
